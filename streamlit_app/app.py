@@ -22,7 +22,7 @@ import os
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="DARE RAN Anomaly Detection",
-    page_icon="📡",
+    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -52,9 +52,19 @@ st.markdown("""
     }
     [data-testid="stSidebar"] * { font-family: 'DM Sans', sans-serif !important; }
 
-    /* Hide only the text inside the sidebar collapse button, keep button functional */
-    [data-testid="stIconMaterial"] { font-size: 0 !important; }
-    [data-testid="stIconMaterial"]::before { content: "←"; font-size: 14px !important; color: rgba(255,255,255,0.3) !important; font-family: 'DM Sans', sans-serif !important; }
+    /* Sidebar collapse button — hide icon text, keep button clickable */
+    [data-testid="stIconMaterial"] { font-size: 0 !important; width: 0 !important; }
+    button[data-testid="stBaseButton-header"] {
+        background: rgba(255,255,255,0.04) !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        border-radius: 6px !important;
+        width: 28px !important;
+        height: 28px !important;
+        padding: 0 !important;
+    }
+    button[data-testid="stBaseButton-header"]:hover {
+        background: rgba(255,255,255,0.08) !important;
+    }
 
     /* Remove sidebar horizontal scrollbar */
     [data-testid="stSidebar"] > div:first-child {
@@ -356,13 +366,13 @@ def section(title, icon=""):
     """, unsafe_allow_html=True)
 
 def insight(text):
-    st.markdown(f'<div class="insight-box"><p>💡 {text}</p></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="insight-box"><p>{text}</p></div>', unsafe_allow_html=True)
 
 def finding(text):
-    st.markdown(f'<div class="finding-box"><p>✅ {text}</p></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="finding-box"><p>{text}</p></div>', unsafe_allow_html=True)
 
 def warning(text):
-    st.markdown(f'<div class="warning-box"><p>⚠️ {text}</p></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="warning-box"><p>{text}</p></div>', unsafe_allow_html=True)
 
 def term(name, definition):
     st.markdown(f"""
@@ -401,7 +411,7 @@ with st.sidebar:
         "Navigate",
         ["Project Overview",
          "Dataset Explorer",
-         "Data Quality Checks",
+         "Data Quality",
          "KPI Signal Analysis",
          "ML — Logistic Regression",
          "ML — Random Forest",
@@ -444,14 +454,30 @@ with st.sidebar:
         </div>
         <div style="font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
                     color:#F0F4FF; margin-bottom:4px;">
-            Krishna Jha
+            Krishna Kumar Jha
         </div>
         <div style="font-family:'DM Sans',sans-serif; font-size:12px;
-                    color:rgba(64,180,255,0.7); margin-bottom:2px;">
+                    color:rgba(64,180,255,0.7); margin-bottom:6px;">
             Data Engineering · Network Analysis
         </div>
+        <a href="https://www.linkedin.com/in/krishna-kumar-jha" target="_blank"
+           style="display:inline-flex; align-items:center; gap:6px;
+                  background:rgba(10,102,194,0.2); border:1px solid rgba(10,102,194,0.4);
+                  border-radius:6px; padding:5px 10px; text-decoration:none;
+                  font-family:'DM Sans',sans-serif; font-size:11px; color:#7CB9E8;
+                  transition:background 0.2s;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                 fill="#7CB9E8">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762
+                         0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5
+                         -12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79
+                         1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368
+                         -4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            LinkedIn
+        </a>
         <div style="font-family:'DM Mono',monospace; font-size:11px;
-                    color:rgba(255,255,255,0.3);">
+                    color:rgba(255,255,255,0.3); margin-top:6px;">
             March 2026
         </div>
     </div>
@@ -497,7 +523,7 @@ if page == "Project Overview":
     st.markdown("---")
 
     # ── What is this project ──────────────────────────────────────────────────
-    section("What is this project?", "🎯")
+    section("What is this project?")
     col1, col2 = st.columns([3, 2])
     with col1:
         st.markdown("""
@@ -536,7 +562,7 @@ if page == "Project Overview":
         """)
 
     # ── The experiment ────────────────────────────────────────────────────────
-    section("How the experiment worked", "🔬")
+    section("How the experiment worked")
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown("""
@@ -578,7 +604,7 @@ if page == "Project Overview":
         """)
 
     # ── Data pipeline summary ─────────────────────────────────────────────────
-    section("What was built", "🏗️")
+    section("What was built")
     col1, col2 = st.columns(2)
     with col1:
         finding("Local Python pipeline: 37 GB of raw CSVs → 1 GB of clean Parquet (38x compression)")
@@ -606,7 +632,7 @@ if page == "Project Overview":
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "Dataset Explorer":
 
-    st.title("📊 Dataset Explorer")
+    st.title("Dataset Explorer")
     st.markdown("Explore the structure and balance of the DARE RAN dataset across tranches, sessions, and cipher states.")
 
     # ── Filters ───────────────────────────────────────────────────────────────
@@ -718,7 +744,7 @@ elif page == "Dataset Explorer":
 
     # ── Row count distribution ─────────────────────────────────────────────────
     section("Measurement Density per Run", "📏")
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([2, 3])
     with col1:
         st.markdown("""
         Each run contains approximately **7,700 measurement snapshots** taken at ~1ms intervals
@@ -752,205 +778,160 @@ elif page == "Dataset Explorer":
         )
         st.plotly_chart(fig, use_container_width=True)
 
+
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: DATA QUALITY CHECKS
+# PAGE: DATA QUALITY
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "Data Quality Checks":
-    st.title("Data Quality Checks")
+elif page == "Data Quality":
+    st.title("Data Quality")
     st.markdown("""
-    Before uploading a single file to Google Cloud Storage, every one of the
-    1,982 processed Parquet files was validated through an 8-check data quality
-    suite. This page documents what each check verified and what the results
-    confirmed.
+    Before a single file was uploaded to Google Cloud Storage, all 1,982
+    processed Parquet files passed an 8-check data quality suite written
+    in Python using PyArrow. This page documents every check — what it
+    verified, why it matters, and what the result confirmed.
     """)
 
-    section("Why DQ Checks Matter")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("""
-        A data pipeline is only as good as the data it produces. Uploading
-        corrupt, biased, or incorrectly typed data to the cloud means every
-        downstream query, chart, and ML model will silently produce wrong results.
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Files Checked", "1,982")
+    col2.metric("Checks Run", "8")
+    col3.metric("Issues Found", "0")
 
-        The 8 checks below were designed to catch the four specific bugs found
-        during development — and to confirm that the fixes worked across all
-        1,982 files, not just the ones manually inspected.
-        """)
-    with col2:
-        col_a, col_b, col_c = st.columns(3)
-        col_a.metric("Files Checked", "1,982")
-        col_b.metric("Checks Run", "8")
-        col_c.metric("Issues Found", "0")
-
-    section("The 8 Pre-Upload Checks")
+    section("Pre-Upload DQ Suite")
 
     checks = [
         {
             "number": "01",
-            "name": "Boolean Dtype Violation Check",
-            "what": "Scanned every column in every file for the boolean dtype.",
-            "why": "A bug in optimise_dtypes() was converting float columns containing only 0.0 and 1.0 values to boolean. This destroyed columns like lost_pdus and bad_pdu_rate — turning numeric counts into True/False flags. The fix was confirmed across all 1,982 files.",
+            "name": "Boolean Dtype Violation",
+            "what": "Scanned every column in every file for the boolean dtype (excluding label_mismatch which is intentionally boolean).",
+            "why": "A bug in optimise_dtypes() converted float columns containing only 0.0 and 1.0 to boolean — turning pdcp_rx__lost_pdus and bad_pdu_rate from numeric counts into True/False flags. This would have made the most cipher-proximate features completely unusable for ML.",
             "result": "0 boolean violations across 1,982 files",
-            "status": "PASS",
             "colour": "#00D4AA"
         },
         {
             "number": "02",
-            "name": "Physical Value Range Check",
-            "what": "Verified that measurement values fall within physically plausible bounds for each column type.",
-            "why": "Values outside physical bounds indicate a merge alignment error — rows from different runs or different timestamps got mixed together. BLER must be 0–1, MCS must be 0–28, SNR must be −30 to 60 dB, throughput must be positive.",
-            "result": "All values within physical ranges across all files",
-            "status": "PASS",
+            "name": "Physical Value Range",
+            "what": "Verified that measurement values fall within physically plausible bounds: BLER 0–1, MCS 0–28, SNR −30 to 60 dB, throughput positive.",
+            "why": "Values outside physical bounds indicate a merge alignment error — rows from different runs or timestamps got mixed together. Any such error would silently corrupt the feature matrix.",
+            "result": "All values within physical ranges across all 1,982 files",
             "colour": "#00D4AA"
         },
         {
             "number": "03",
-            "name": "Row Count Distribution Check",
-            "what": "Computed row counts per file and flagged statistical outliers beyond 3 standard deviations from the median.",
-            "why": "Each run should contain approximately 7,700 measurement snapshots. A run with 200 rows passed the quarantine threshold but would produce unreliable quantile features. A run with 50,000 rows would indicate a duplicate merge.",
-            "result": "Median 7,698 rows · Min 7,459 · Max 7,828 · Outliers (3σ): 38 reviewed",
-            "status": "PASS",
+            "name": "Row Count Distribution",
+            "what": "Computed row counts per file and flagged statistical outliers beyond 3 standard deviations from the tranche median.",
+            "why": "Each run should contain approximately 7,700 measurement snapshots. Outliers may indicate a truncated write or a merge that duplicated rows — either would produce unreliable per-run quantile features.",
+            "result": "Median 7,698 rows · Min 7,459 · Max 7,828 · 38 outliers reviewed and confirmed legitimate",
             "colour": "#00D4AA"
         },
         {
             "number": "04",
-            "name": "Column Count Distribution Check",
+            "name": "Column Count Distribution",
             "what": "Counted columns per file and documented the distinct schema variants per tranche.",
-            "why": "Schema drift — files having different column sets — is expected due to UE hardware variation (some runs have a secondary component carrier active, adding extra columns). This check quantified the drift to confirm it was dataset variation, not a pipeline error.",
-            "result": "Min 118 cols · Max 180 cols · 16–19 distinct schemas per tranche",
-            "status": "PASS",
+            "why": "Schema drift — different files having different column sets — is expected due to UE hardware variation (secondary component carrier active in some runs). This check confirmed the drift was dataset variation, not a pipeline error.",
+            "result": "Min 118 · Max 180 columns · 16–19 distinct schemas per tranche — all expected",
             "colour": "#40B4FF"
         },
         {
             "number": "05",
-            "name": "Cipher State Balance Check",
+            "name": "Cipher State Balance",
             "what": "Computed cipher-on vs cipher-off proportions for every session in every tranche.",
-            "why": "NIST designed the experiment with equal numbers of cipher-on and cipher-off runs per session. If the preprocessing pipeline quarantined runs asymmetrically — more cipher-on than cipher-off — it would introduce class imbalance that would bias ML models toward the majority class.",
-            "result": "All 28 sessions: 49–53% cipher-on · Perfect balance preserved",
-            "status": "PASS",
+            "why": "NIST designed the experiment with equal numbers of cipher-on and cipher-off runs per session. Asymmetric quarantines would introduce class imbalance that biases ML models toward the majority class.",
+            "result": "All 28 sessions: 49–53% cipher-on · Balance preserved across all tranches",
             "colour": "#00D4AA"
         },
         {
             "number": "06",
-            "name": "Null Rate Check",
-            "what": "Computed the proportion of missing values for every key feature column across all files.",
-            "why": "High null rates in feature columns mean the Silver aggregations will be computed on incomplete data. A column with 40% nulls produces unreliable quantiles and means. The threshold was set at 1% — anything above requires investigation.",
-            "result": "No key column exceeded 1% null rate across any file",
-            "status": "PASS",
+            "name": "Null Rate in Key Columns",
+            "what": "Computed missing value proportions for every key feature column across all files. Threshold: 1%.",
+            "why": "High null rates in feature columns produce unreliable quantiles and means during Silver aggregation. A column with 40% nulls is effectively unusable as an ML feature.",
+            "result": "No key column exceeded 1% null rate in any file",
             "colour": "#00D4AA"
         },
         {
             "number": "07",
-            "name": "Timestamp Continuity Check",
-            "what": "Sampled every 10th file and checked whether the timestamp column contained suspicious duplicate values.",
-            "why": "A correctly merged file has timestamps that progress forward through time — each row represents a different millisecond. If 95% of rows share the same timestamp, it means the merge accidentally replicated one group's timestamps across all rows, indicating a pandas concat alignment error.",
+            "name": "Timestamp Continuity",
+            "what": "Sampled every 10th file and checked whether the timestamp column contained suspicious duplicate values (threshold: >95% identical timestamps flagged).",
+            "why": "A correctly merged file has timestamps progressing through time. If 95% of rows share the same timestamp, the merge accidentally replicated one group's timestamps — indicating a concat alignment error.",
             "result": "No files with suspicious timestamp duplication",
-            "status": "PASS",
             "colour": "#00D4AA"
         },
         {
             "number": "08",
-            "name": "File Readability Check",
+            "name": "File Readability",
             "what": "Opened every Parquet file using PyArrow and confirmed it could be fully read without errors.",
-            "why": "A file can exist on disk and have the correct size but still be corrupt — truncated during write, invalid Parquet footer, or schema metadata mismatch. This check confirmed every file was valid at the byte level before upload.",
+            "why": "A file can exist on disk with the correct size but still be corrupt — truncated during write, invalid Parquet footer, or schema metadata mismatch. This check confirmed every file was valid at the byte level before upload.",
             "result": "1,982 / 1,982 files readable",
-            "status": "PASS",
             "colour": "#00D4AA"
         },
     ]
 
     for check in checks:
-        col1, col2 = st.columns([1, 8])
+        col1, col2 = st.columns([1, 10])
         with col1:
             st.markdown(f"""
-            <div style="
-                background: linear-gradient(135deg, rgba(64,180,255,0.15), rgba(0,212,130,0.1));
-                border: 1px solid rgba(255,255,255,0.1);
-                border-radius: 10px;
-                padding: 12px 8px;
-                text-align: center;
-                font-family: 'DM Mono', monospace;
-                font-size: 20px;
-                font-weight: 600;
-                color: rgba(255,255,255,0.4);
-                margin-top: 4px;
-            ">{check["number"]}</div>
+            <div style="background:linear-gradient(135deg,rgba(64,180,255,0.12),rgba(0,212,130,0.08));
+                        border:1px solid rgba(255,255,255,0.08); border-radius:10px;
+                        padding:14px 6px; text-align:center;
+                        font-family:'DM Mono',monospace; font-size:18px; font-weight:600;
+                        color:rgba(255,255,255,0.35);">{check["number"]}</div>
             """, unsafe_allow_html=True)
         with col2:
-            status_colour = "#00D4AA" if check["status"] == "PASS" else "#E57373"
             st.markdown(f"""
-            <div style="
-                background: rgba(255,255,255,0.02);
-                border: 1px solid rgba(255,255,255,0.07);
-                border-left: 3px solid {check['colour']};
-                border-radius: 0 10px 10px 0;
-                padding: 16px 20px;
-                margin-bottom: 12px;
-            ">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
+                        border-left:3px solid {check['colour']}; border-radius:0 10px 10px 0;
+                        padding:16px 20px; margin-bottom:10px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                     <span style="font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
                                  color:#F0F4FF;">{check["name"]}</span>
-                    <span style="font-family:'DM Mono',monospace; font-size:11px; font-weight:600;
-                                 color:{status_colour}; letter-spacing:0.1em;
-                                 background:rgba(0,212,130,0.1); padding:3px 10px;
-                                 border-radius:4px; border:1px solid rgba(0,212,130,0.2);">
-                        {check["status"]}
+                    <span style="font-family:'DM Mono',monospace; font-size:10px; font-weight:600;
+                                 color:#00D4AA; letter-spacing:0.1em; background:rgba(0,212,130,0.08);
+                                 padding:3px 10px; border-radius:4px; border:1px solid rgba(0,212,130,0.2);">
+                        PASS
                     </span>
                 </div>
                 <div style="font-family:'DM Sans',sans-serif; font-size:13px;
-                            color:rgba(255,255,255,0.55); margin-bottom:6px; line-height:1.5;">
-                    <strong style="color:rgba(255,255,255,0.4); font-size:11px;
-                                   letter-spacing:0.08em; text-transform:uppercase;">What:</strong>
-                    {check["what"]}
+                            color:rgba(255,255,255,0.5); margin-bottom:5px; line-height:1.55;">
+                    <span style="color:rgba(255,255,255,0.3); font-size:10px;
+                                 letter-spacing:0.1em; text-transform:uppercase;">What — </span>{check["what"]}
                 </div>
                 <div style="font-family:'DM Sans',sans-serif; font-size:13px;
-                            color:rgba(255,255,255,0.45); margin-bottom:6px; line-height:1.5;">
-                    <strong style="color:rgba(255,255,255,0.4); font-size:11px;
-                                   letter-spacing:0.08em; text-transform:uppercase;">Why:</strong>
-                    {check["why"]}
+                            color:rgba(255,255,255,0.4); margin-bottom:8px; line-height:1.55;">
+                    <span style="color:rgba(255,255,255,0.3); font-size:10px;
+                                 letter-spacing:0.1em; text-transform:uppercase;">Why — </span>{check["why"]}
                 </div>
-                <div style="font-family:'DM Mono',monospace; font-size:12px;
-                            color:{check['colour']}; margin-top:8px;">
-                    Result: {check["result"]}
+                <div style="font-family:'DM Mono',monospace; font-size:12px; color:{check['colour']};">
+                    {check["result"]}
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
-    section("Post-Upload Verification")
-    st.markdown("""
-    After uploading to GCS, two additional checks were run from Cloud Shell
-    to confirm the upload was complete and uncorrupted:
-    """)
-
+    section("Post-Upload GCS Verification")
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
-        **File count verification**
+        **File count**
         ```bash
         gsutil ls -r gs://dare-raw-nist-anomaly/parquet/** \
           | grep ".parquet$" | wc -l
-        # Result: 1982 ✓
+        # 1982
         ```
-        Confirmed all 1,982 files were present in GCS after upload.
         """)
     with col2:
         st.markdown("""
-        **Size verification**
+        **Total size**
         ```bash
         gsutil du -sh gs://dare-raw-nist-anomaly/parquet/
-        # Result: 954.53 MiB ✓
+        # 954.53 MiB
         ```
-        Confirmed total upload size matched local preprocessed output exactly.
         """)
-
-    finding("All 8 pre-upload checks passed across all 1,982 files. Post-upload verification confirmed complete and uncorrupted transfer to GCS. The data in BigQuery is the same data that passed every quality check locally.")
+    finding("All 8 pre-upload checks passed across all 1,982 files. Post-upload verification confirmed complete and uncorrupted transfer to GCS.")
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE 3 — KPI SIGNAL ANALYSIS
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "KPI Signal Analysis":
 
-    st.title("🔬 KPI Signal Analysis")
+    st.title("KPI Signal Analysis")
     st.markdown("""
     This page shows the statistical signals that distinguish cipher-ON from cipher-OFF runs.
     All measurements come from the **physical layer of the LTE radio stack** — the signals
@@ -978,7 +959,7 @@ elif page == "KPI Signal Analysis":
     st.markdown("---")
 
     # ── BLER Analysis ─────────────────────────────────────────────────────────
-    section("Block Error Rate (BLER) — The Primary Signal", "📡")
+    section("Block Error Rate (BLER) — The Primary Signal")
     st.markdown("""
     BLER is the most important feature for detecting cipher misconfigurations. When cipher is ON,
     the baseband processor does extra work (encrypting/decrypting packets). This adds tiny processing
@@ -1034,7 +1015,7 @@ elif page == "KPI Signal Analysis":
         finding("The two distributions do not overlap: cipher-ON Q25 (0.000291) is higher than cipher-OFF Q75 (0.000283). This means a simple threshold could classify cipher state from BLER alone.")
 
     # ── BLER Quantile comparison ───────────────────────────────────────────────
-    section("BLER Distribution — Quantile Comparison", "📊")
+    section("BLER Distribution — Quantile Comparison")
     st.markdown("""
     Rather than just comparing averages, we compare the full **statistical distribution** of BLER
     across runs. A quantile (e.g., Q25) is the value below which 25% of runs fall.
@@ -1173,7 +1154,7 @@ elif page == "KPI Signal Analysis":
     st.markdown("---")
 
     # ── Throughput — the silent proof ─────────────────────────────────────────
-    section("Throughput & MCS — The Silent Misconfiguration", "🔇")
+    section("Throughput & MCS — The Silent Misconfiguration")
     st.markdown("""
     This is the most important result for understanding why cipher misconfigurations go undetected.
     **Throughput and MCS are essentially identical** between cipher-ON and cipher-OFF.
@@ -1579,10 +1560,10 @@ elif page == "ML — Isolation Forest":
 # PAGE — ML: LOGISTIC REGRESSION
 elif page == "Glossary":
 
-    st.title("🗂️ Glossary")
+    st.title("Glossary")
     st.markdown("Plain-English definitions of every technical term used in this dashboard.")
 
-    section("LTE Network Terms", "📡")
+    section("LTE Network Terms")
     col1, col2 = st.columns(2)
     with col1:
         term("LTE (Long Term Evolution)", "The technical standard for 4G mobile networks. The radio protocol that connects your phone to the mobile network.")
@@ -1599,7 +1580,7 @@ elif page == "Glossary":
         term("SDU (Service Data Unit)", "A packet as passed upward to the application layer. Should be decrypted and intact.")
         term("Bearer", "A dedicated data channel between UE and network. A UE can have multiple bearers for different types of traffic (voice, data, etc.)")
 
-    section("Measurement KPIs", "📊")
+    section("Measurement KPIs")
     col1, col2 = st.columns(2)
     with col1:
         term("BLER — Block Error Rate",
@@ -1620,7 +1601,7 @@ elif page == "Glossary":
         term("Throughput (kbps)",
              "Data transfer rate in kilobits per second. Our runs average ~1,009 kbps (≈1 Mbps) — this is the simulated application traffic rate, not the maximum possible rate.")
 
-    section("Data Engineering Terms", "🏗️")
+    section("Data Engineering Terms")
     col1, col2 = st.columns(2)
     with col1:
         term("Parquet",
