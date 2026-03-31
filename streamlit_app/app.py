@@ -223,27 +223,15 @@ st.markdown("""
     }
 
     /* ── Streamlit radio nav ── */
-    [data-testid="stRadio"] > div { gap: 2px !important; }
     [data-testid="stRadio"] label {
         font-family: 'DM Sans', sans-serif !important;
         font-size: 13px !important;
-        color: rgba(255,255,255,0.45) !important;
+        color: rgba(255,255,255,0.55) !important;
         letter-spacing: 0.02em !important;
-        padding: 7px 12px !important;
-        border-radius: 6px !important;
-        border: none !important;
-        width: 100% !important;
+        padding: 6px 0 !important;
     }
     [data-testid="stRadio"] label:hover {
-        color: rgba(255,255,255,0.85) !important;
-        background: rgba(255,255,255,0.05) !important;
-    }
-    div[role="radiogroup"] label > div:first-child { display: none !important; }
-    div[role="radiogroup"] label[aria-checked="true"] {
-        color: #40B4FF !important;
-        background: rgba(64,180,255,0.08) !important;
-        border-left: 2px solid #40B4FF !important;
-        padding-left: 10px !important;
+        color: rgba(255,255,255,0.9) !important;
     }
     /* Hide default radio circle, replace with custom indicator */
     [data-testid="stRadio"] [data-testid="stMarkdownContainer"] p {
