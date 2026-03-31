@@ -1,0 +1,129 @@
+# =============================================================================
+# DARE RAN Anomaly Detection — .gitignore
+# =============================================================================
+
+# ── CRITICAL: Credentials and secrets ────────────────────────────────────────
+terraform/creds.json
+terraform/*.json
+*.json
+!package.json
+.streamlit/secrets.toml
+**/service_account*.json
+**/credentials*.json
+*_key.json
+gcp_key*.json
+
+# ── Terraform ────────────────────────────────────────────────────────────────
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ── Python ────────────────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ── Jupyter Notebooks ─────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# ── Data files — too large for git ───────────────────────────────────────────
+*.parquet
+*.csv
+!scripts/*.csv
+manifest.csv
+quarantine.csv
+*.db
+*.sqlite
+*.sqlite3
+*.h5
+*.hdf5
+*.feather
+*.pkl
+*.pickle
+
+# ── Local output directories ──────────────────────────────────────────────────
+reports/
+outputs/
+data/
+*.log
+
+# ── IDE — PyCharm ─────────────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# ── IDE — VS Code ────────────────────────────────────────────────────────────
+.vscode/
+*.code-workspace
+
+# ── OS files ─────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Docker ───────────────────────────────────────────────────────────────────
+docker/*.env
+docker/.env
+
+# ── dbt ──────────────────────────────────────────────────────────────────────
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+dbt/profiles.yml
+
+# ── Streamlit ─────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Temporary files ───────────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
