@@ -189,10 +189,11 @@ PLOTLY_LAYOUT = dict(
         borderwidth=1,
         font=dict(color="#9BA8C0")
     ),
-    xaxis=dict(gridcolor="#252840", zerolinecolor="#252840"),
-    yaxis=dict(gridcolor="#252840", zerolinecolor="#252840"),
     margin=dict(t=50, b=40, l=50, r=20)
 )
+
+# Axis styling applied per-chart to avoid kwarg conflicts
+AXIS_STYLE = dict(gridcolor="#252840", zerolinecolor="#252840", color="#9BA8C0")
 
 # ── Helper functions ──────────────────────────────────────────────────────────
 def section(title, icon=""):
@@ -600,7 +601,7 @@ elif page == "🔬 KPI Signal Analysis":
             **PLOTLY_LAYOUT,
             title="Average BLER by Cipher State",
             yaxis_title="Block Error Rate",
-            yaxis=dict(range=[0.00025, 0.00034], gridcolor="#252840"),
+            yaxis=dict(range=[0.00025, 0.00034], **AXIS_STYLE),
             height=350
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -756,7 +757,7 @@ elif page == "🔬 KPI Signal Analysis":
         fig.update_layout(
             **PLOTLY_LAYOUT,
             title="Average RSRQ by Cipher State",
-            yaxis=dict(range=[-10.50, -10.40], gridcolor="#252840"),
+            yaxis=dict(range=[-10.50, -10.40], **AXIS_STYLE),
             yaxis_title="RSRQ (dB) — closer to 0 is better",
             height=320
         )
@@ -790,7 +791,7 @@ elif page == "🔬 KPI Signal Analysis":
             **PLOTLY_LAYOUT,
             title="Average DL Throughput — Nearly Identical",
             yaxis_title="Throughput (kbps)",
-            yaxis=dict(range=[1005, 1015], gridcolor="#252840"),
+            yaxis=dict(range=[1005, 1015], **AXIS_STYLE),
             height=320
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -812,7 +813,7 @@ elif page == "🔬 KPI Signal Analysis":
             **PLOTLY_LAYOUT,
             title="Average MCS — Nearly Identical",
             yaxis_title="MCS Index (0–28)",
-            yaxis=dict(range=[26.67, 26.70], gridcolor="#252840"),
+            yaxis=dict(range=[26.67, 26.70], **AXIS_STYLE),
             height=320
         )
         st.plotly_chart(fig, use_container_width=True)
