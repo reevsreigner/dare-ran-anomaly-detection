@@ -222,36 +222,11 @@ st.markdown("""
         font-weight: 300;
     }
 
-    /* ── Streamlit radio nav ── */
-    [data-testid="stRadio"] label {
+    /* ── Streamlit radio nav — minimal safe styling only ── */
+    [data-testid="stRadio"] p {
         font-family: 'DM Sans', sans-serif !important;
         font-size: 13px !important;
-        color: rgba(255,255,255,0.55) !important;
-        letter-spacing: 0.02em !important;
-        padding: 6px 0 !important;
-    }
-    [data-testid="stRadio"] label:hover {
-        color: rgba(255,255,255,0.9) !important;
-    }
-    /* Hide default radio circle, replace with custom indicator */
-    [data-testid="stRadio"] [data-testid="stMarkdownContainer"] p {
-        font-family: 'DM Sans', sans-serif !important;
-        font-size: 13px !important;
-    }
-    /* Selected state */
-    [data-testid="stRadio"] label[data-selected="true"] {
-        color: #40B4FF !important;
-    }
-    /* Radio button dot colour */
-    [data-testid="stRadio"] input[type="radio"]:checked + div {
-        background-color: #40B4FF !important;
-        border-color: #40B4FF !important;
-    }
-    [data-testid="stRadio"] input[type="radio"] + div {
-        border-color: rgba(255,255,255,0.2) !important;
-        background-color: transparent !important;
-        width: 14px !important;
-        height: 14px !important;
+        color: rgba(255,255,255,0.65) !important;
     }
 
     /* ── General text ── */
