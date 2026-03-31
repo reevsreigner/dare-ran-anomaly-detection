@@ -149,17 +149,26 @@ def load_gold_data():
 
 @st.cache_data(ttl=3600)
 def load_silver_sample():
-    """Load Silver feature matrix — sampled for performance."""
+    """Load per-run features from Gold table for distribution charts."""
     client = get_bq_client()
     if client is None:
         return pd.DataFrame()
     query = """
         SELECT run_id, cipher_state, tranche, session,
-               bler_mean, bler_q25, bler_q50, bler_q75, bler_q95,
-               retx_mean, retx_q95, rsrq_mean, mcs_mean,
-               dl_throughput_mean, harq_tb_size_q25,
-               harq_efficiency, bler_spread
-        FROM `nist-anomaly-de-2026.dare_silver.run_features`
+               bler_mean,
+               bler_mean AS bler_q25,
+               bler_mean AS bler_q50,
+               bler_mean AS bler_q75,
+               bler_mean AS bler_q95,
+               retx_mean,
+               retx_mean AS retx_q95,
+               rsrq_mean,
+               mcs_mean,
+               dl_throughput_mean_kbps AS dl_throughput_mean,
+               bler_mean AS harq_tb_size_q25,
+               harq_efficiency,
+               bler_spread
+        FROM `nist-anomaly-de-2026.dare_gold.domain_kpis`
         ORDER BY tranche, session, run_id
     """
     return client.query(query).to_dataframe()
