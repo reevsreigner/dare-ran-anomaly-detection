@@ -460,7 +460,7 @@ with st.sidebar:
                     color:rgba(64,180,255,0.7); margin-bottom:6px;">
             Data Engineering · Network Analysis
         </div>
-        <a href="https://www.linkedin.com/in/krishna-kumar-jha" target="_blank"
+        <a href="https://www.linkedin.com/in/krishna-kumar-jha-018aa8173/" target="_blank"
            style="display:inline-flex; align-items:center; gap:6px;
                   background:rgba(10,102,194,0.2); border:1px solid rgba(10,102,194,0.4);
                   border-radius:6px; padding:5px 10px; text-decoration:none;
