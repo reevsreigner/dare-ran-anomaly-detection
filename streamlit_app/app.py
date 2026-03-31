@@ -47,8 +47,28 @@ st.markdown("""
     [data-testid="stSidebar"] {
         background-color: #0A0F1A;
         border-right: 1px solid rgba(255,255,255,0.06);
+        overflow: hidden !important;
+        min-width: 0 !important;
     }
     [data-testid="stSidebar"] * { font-family: 'DM Sans', sans-serif !important; }
+
+    /* Hide sidebar collapse button icon */
+    [data-testid="stIconMaterial"] { display: none !important; }
+    [data-testid="stSidebarCollapseButton"] { opacity: 0 !important; pointer-events: none !important; }
+    button[data-testid="stBaseButton-header"] { display: none !important; }
+
+    /* Remove sidebar horizontal scrollbar */
+    [data-testid="stSidebar"] > div:first-child {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+    [data-testid="stSidebarUserContent"] {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    /* Hide scrollbar entirely */
+    [data-testid="stSidebar"] ::-webkit-scrollbar { width: 0px !important; background: transparent !important; }
 
     /* ── Metric cards ── */
     [data-testid="stMetric"] {
